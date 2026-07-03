@@ -786,9 +786,24 @@
       </div>
       <div class="opening-bottom">
         <div class="opening-title">Trân trọng kính mời</div>
-        <div class="opening-invite">Quý khách</div>
+        <div class="opening-invite" id="miuGuestName">Quý khách</div>
       </div>
       <div id="miuOpeningCta" aria-hidden="false"><button id="miuOpeningCtaBtn" type="button">Mở thiệp</button></div></div>
+<script>
+(function(){
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var guestName = params.get('khach-quy-name');
+    if (guestName) {
+      guestName = decodeURIComponent(guestName).trim();
+      if (guestName) {
+        var el = document.getElementById('miuGuestName');
+        if (el) el.textContent = guestName;
+      }
+    }
+  } catch(e) {}
+})();
+</script>
         </div>
       </div>
     
