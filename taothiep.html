@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tạo thiệp mời cá nhân - Tuyền &amp; Hà</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--gold:#8d5f25;--gold-light:#c49a48;--gold-pale:#f5ead8;--bg:#fdf8f0;--white:#ffffff;--text:#3a2a10;--radius:16px}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);background-image:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(141,95,37,.08) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(196,154,72,.06) 0%,transparent 60%);font-family:'Inter',sans-serif;color:var(--text);padding:24px}
+    .card{background:var(--white);border-radius:var(--radius);box-shadow:0 8px 40px rgba(141,95,37,.12),0 1px 4px rgba(141,95,37,.08);padding:48px 40px 40px;width:100%;max-width:480px;position:relative;overflow:hidden}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
+    .couple-label{font-family:'Lora',serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);text-align:center;margin-bottom:6px}
+    h1{font-family:'Lora',serif;font-size:26px;font-weight:600;color:var(--gold);text-align:center;margin-bottom:4px;line-height:1.3}
+    .subtitle{font-size:13px;color:#a08050;text-align:center;margin-bottom:36px}
+    label{display:block;font-size:13px;font-weight:500;color:var(--gold);margin-bottom:8px;letter-spacing:.03em}
+    .input-wrap{position:relative;margin-bottom:20px}
+    input[type="text"]{width:100%;padding:14px 18px;border:1.5px solid #e8d5b0;border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;color:var(--text);background:var(--gold-pale);outline:none;transition:border-color .2s,box-shadow .2s}
+    input[type="text"]::placeholder{color:#c4a97a}
+    input[type="text"]:focus{border-color:var(--gold-light);box-shadow:0 0 0 3px rgba(196,154,72,.15);background:#fff}
+    .btn-generate{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;letter-spacing:.03em;transition:transform .15s,box-shadow .15s,opacity .15s;box-shadow:0 4px 16px rgba(141,95,37,.3)}
+    .btn-generate:hover{opacity:.92;transform:translateY(-1px);box-shadow:0 6px 22px rgba(141,95,37,.35)}
+    .btn-generate:active{transform:translateY(0)}
+    #result{display:none;margin-top:28px;padding-top:24px;border-top:1px solid #eeddbb}
+    .result-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-light);margin-bottom:10px}
+    .preview-box{background:var(--gold-pale);border:1px solid #e8d5b0;border-radius:10px;padding:14px 16px;font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--gold);text-align:center;margin-bottom:14px}
+    .link-box{display:flex;align-items:center;gap:8px;background:#f9f4ec;border:1.5px solid #e8d5b0;border-radius:10px;padding:10px 14px;margin-bottom:12px}
+    #generatedLink{flex:1;font-size:12.5px;color:#6a4a1a;word-break:break-all;line-height:1.5;font-family:'Inter',sans-serif}
+    .btn-copy{flex-shrink:0;padding:8px 14px;background:var(--gold);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}
+    .btn-copy:hover{background:var(--gold-light)}
+    .btn-copy:active{transform:scale(.97)}
+    .btn-copy.copied{background:#4caf50}
+    .btn-open{display:block;width:100%;padding:12px;background:transparent;color:var(--gold);border:1.5px solid var(--gold);border-radius:10px;font-size:14px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;text-align:center;text-decoration:none;transition:background .2s,color .2s}
+    .btn-open:hover{background:var(--gold-pale)}
+    .footer{text-align:center;font-size:12px;color:#b89a60;margin-top:32px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p class="couple-label">Wedding Invitation</p>
+    <h1>Tạo thiệp mời cá nhân</h1>
+    <p class="subtitle">Tuyền Nguyễn &amp; Hà Nguyễn – 02.08.2026</p>
+
+    <label for="guestInput">Tên khách mời</label>
+    <div class="input-wrap">
+      <input type="text" id="guestInput" placeholder="Ví dụ: Anh Nguyễn Văn A" autocomplete="off" autofocus />
+    </div>
+
+    <button class="btn-generate" onclick="generateLink()">✨ Tạo link mời</button>
+
+    <div id="result">
+      <p class="result-label">Xem trước thiệp</p>
+      <div class="preview-box">
+        Trân trọng kính mời<br>
+        <strong id="previewName" style="font-style:normal;font-size:17px;"></strong>
+      </div>
+
+      <p class="result-label">Link thiệp mời</p>
+      <div class="link-box">
+        <span id="generatedLink"></span>
+        <button class="btn-copy" id="copyBtn" onclick="copyLink()">Sao chép</button>
+      </div>
+
+      <a id="openBtn" class="btn-open" href="#" target="_blank">🔗 Mở thiệp mời</a>
+    </div>
+
+    <p class="footer">Nhập tên → nhận link → gửi cho khách là xong 🎉</p>
+  </div>
+
+  <script>
+    var currentLink = '';
+    function generateLink() {
+      var name = document.getElementById('guestInput').value.trim();
+      if (!name) {
+        var inp = document.getElementById('guestInput');
+        inp.focus();
+        inp.style.borderColor = '#e57373';
+        setTimeout(function(){ inp.style.borderColor = ''; }, 1500);
+        return;
+      }
+      var base = window.location.origin + window.location.pathname.replace(/\/taothiep\.html$/, '') + '/index.html';
+      currentLink = base + '?khach-quy-name=' + encodeURIComponent(name);
+      document.getElementById('previewName').textContent = name;
+      document.getElementById('generatedLink').textContent = currentLink;
+      document.getElementById('openBtn').href = currentLink;
+      var resultEl = document.getElementById('result');
+      resultEl.style.display = 'block';
+      resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      var copyBtn = document.getElementById('copyBtn');
+      copyBtn.textContent = 'Sao chép';
+      copyBtn.classList.remove('copied');
+    }
+    function copyLink() {
+      if (!currentLink) return;
+      navigator.clipboard.writeText(currentLink).then(function() {
+        var btn = document.getElementById('copyBtn');
+        btn.textContent = '✓ Đã chép!';
+        btn.classList.add('copied');
+        setTimeout(function(){ btn.textContent = 'Sao chép'; btn.classList.remove('copied'); }, 2000);
+      }).catch(function() {
+        var ta = document.createElement('textarea');
+        ta.value = currentLink;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+        var btn = document.getElementById('copyBtn');
+        btn.textContent = '✓ Đã chép!'; btn.classList.add('copied');
+        setTimeout(function(){ btn.textContent = 'Sao chép'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+    document.getElementById('guestInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') generateLink();
+    });
+  </script>
+</body>
+</html>
